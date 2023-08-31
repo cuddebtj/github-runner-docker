@@ -1,0 +1,7 @@
+docker build --build-arg RUNNER_VERSION=2.308.0 --tag docker-github-runner .
+docker run -e GH_TOKEN=$GH_RUNNER_TOKEN -e GH_OWNER=$GH_OWNER -e GH_REPOSITORY='yahoo-export' -d docker-github-runner
+docker compose build
+docker compose up --scale runner=3 -d
+docker compose up --scale runner=1 -d
+dockercompose stop
+docker rm $(docker ps -aq)
